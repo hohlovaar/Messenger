@@ -19,9 +19,17 @@ namespace Messenger
     /// </summary>
     public partial class Chat : Window
     {
+        public static MainWindow Window;
         public Chat()
         {
             InitializeComponent();
+        }
+
+        private void Button_Exit(object sender, RoutedEventArgs e)
+        {
+            Window = new MainWindow();
+            Window.Show();
+            this.Close();
         }
     }
 }

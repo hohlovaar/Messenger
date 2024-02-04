@@ -228,7 +228,7 @@
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
-                                    Margin="5 0 5 3" Click="Button_Exit"/>
+                                    Margin="5 0 5 3"/>
                             <TextBox Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom"
@@ -237,7 +237,7 @@
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Margin="0 0 115 3" Click="Button_Send"/>
+                                    Margin="0 0 115 3"/>
                             <Button Content="Выйти"
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Right"
