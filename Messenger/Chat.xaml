@@ -208,6 +208,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource MainDarkTextColor}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
     </Window.Resources>
     <Grid Background="{DynamicResource MainColor}">
         <Border CornerRadius="10"
@@ -219,25 +227,32 @@
                 <TabControl Width="600" Height="300" Style="{DynamicResource TabControlStyle}">
                     <TabItem Header="Чат с пользователем" Style="{DynamicResource TabItemStyle}">
                         <Grid>
+                            <TextBlock Style="{DynamicResource TextBlockStyle}"
+                                       Text="Имя пользователя" Margin="5 3 0 0" 
+                                       HorizontalAlignment="Left" VerticalAlignment="Top"
+                                       x:Name="userName"/>
                             <ScrollViewer Height="200" VerticalScrollBarVisibility="Visible" 
-                                          CanContentScroll="True" VerticalAlignment="Top">
-                                <StackPanel>
-                                </StackPanel>
+                                          CanContentScroll="True" VerticalAlignment="Top"
+                                          x:Name="scroll">
+                                <StackPanel x:Name="messagesArea"/>
                             </ScrollViewer>
                             <Button Content="Обновить"
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
-                                    Margin="5 0 5 3"/>
+                                    Margin="5 0 5 3"
+                                    Click="Button_Update"/>
                             <TextBox Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom"
-                                     Margin="5 0 220 3" Width="260"/>
+                                     Margin="5 0 220 3" Width="260"
+                                     x:Name="messageBox"/>
                             <Button Content="Отправить"
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Margin="0 0 115 3"/>
+                                    Margin="0 0 115 3"
+                                    Click="Button_Send"/>
                             <Button Content="Выйти"
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Right"

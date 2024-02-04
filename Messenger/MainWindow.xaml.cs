@@ -22,51 +22,64 @@ namespace Messenger
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Chat ChatWindow;
+        // Статическое поле для установления соединения с базой данных
         public static SqlConnection conn = null;
+
+        // Конструктор главного окна
         public MainWindow()
         {
+            InitializeComponent();
+
+            // Проверка наличия открытого соединения с базой данных
             if (conn == null)
             {
-                conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB; 
-                Initial Catalog = Users; Integrated Security=True;");
+                // Инициализация соединения с локальной базой данных MSSQL
+                conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=Users; Integrated Security=SSPI;");
+
+                // Открытие соединения
                 conn.Open();
             }
-            loginBox.IsEnabled = true;
+
+            // Включение кнопки входа
+            LogInButton.IsEnabled = true;
         }
 
+        // Обработчик кнопки входа
         private void Button_Enter(object sender, RoutedEventArgs e)
         {
-            string login = loginBox.Text;
-            string password = passBox.Password;
+            // Создание SQL-команды для выполнения запроса к базе данных
+            SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM USERS WHERE LOGIN = '{loginBox.Text}' and PASSWORD = '{passBox.Password}';", conn);
 
+            // Выполнение запроса и получение результата в SqlDataReader
+            SqlDataReader reader = sqlCommand.ExecuteReader();
 
-            string query = "SELECT COUNT(*) FROM Users WHERE Login = @login AND Password = @password";
-
-            using (SqlCommand cmd = new SqlCommand(query, conn))
+            // Проверка наличия записей в результирующем наборе
+            if (reader.Read())
             {
-                cmd.Parameters.Add("@login", SqlDbType.NVarChar, 10).Value = login;
-                cmd.Parameters.Add("@password", SqlDbType.NVarChar, 10).Value = password;
+                // Создание объекта пользователя с использованием данных из результата запроса
+                User user = new User((int)reader[0], reader[1].ToString());
 
-                conn.Open();
-                int count = (int)cmd.ExecuteScalar();
-                conn.Close();
+                // Закрытие SqlDataReader после использования
+                reader.Close();
 
-                if (count > 0)
-                {
-                    ChatWindow = new Chat();
-                    ChatWindow.Show();
-                    this.Close();
-                }
-                else
-                {
-                    loginBox.ToolTip = "Неверный логин или пароль";
-                    loginBox.Background = Brushes.LightSkyBlue;
-                    passBox.ToolTip = "Неверный логин или пароль";
-                    passBox.Background = Brushes.LightSkyBlue;
-                }
+                // Создание и отображение второго окна (чата) с передачей созданного пользователя
+                Chat secondWindow = new Chat(user);
+                secondWindow.Show();
+
+                // Закрытие текущего окна
+                this.Close();
+            }
+            else
+            {
+                // Установка подсказок и изменение цвета фона полей в случае неверного логина или пароля
+                loginBox.ToolTip = "Неверный логин или пароль";
+                loginBox.Background = Brushes.LightSkyBlue;
+                passBox.ToolTip = "Неверный логин или пароль";
+                passBox.Background = Brushes.LightSkyBlue;
             }
         }
     }
 }
+
+
 

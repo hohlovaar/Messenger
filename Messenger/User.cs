@@ -9,15 +9,11 @@ namespace Messenger
     public class User
     {
         public int id;
-        public string login;
-        public string password;
         public string nickname;
 
-        public User(int id, string login, string password, string nickname)
+        public User(int id, string nickname)
         {
             this.id = id;
-            this.login = login;
-            this.password = password;
             this.nickname = nickname;
         }
     }

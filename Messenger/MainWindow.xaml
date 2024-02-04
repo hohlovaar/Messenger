@@ -300,7 +300,8 @@
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center" 
-                                    Click="Button_Enter"/>
+                                    Click="Button_Enter"
+                                    x:Name="LogInButton"/>
                             <TextBox Style="{DynamicResource TextBoxStyle}"
                                      Grid.Row="0"
                                      Margin="130 0 0 0"
