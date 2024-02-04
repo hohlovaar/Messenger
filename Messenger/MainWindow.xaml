@@ -299,16 +299,16 @@
                             <Button Grid.Row="3" Content="Войти" 
                                     Style="{DynamicResource MainButtonStyle}"
                                     HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Click="Button_Enter_Click"/>
+                                    VerticalAlignment="Center" 
+                                    Click="Button_Enter"/>
                             <TextBox Style="{DynamicResource TextBoxStyle}"
                                      Grid.Row="0"
                                      Margin="130 0 0 0"
-                                     x:Name="loginBoxEnter"/>
+                                     x:Name="loginBox"/>
                             <PasswordBox Style="{DynamicResource PasswordBoxStyle}"
                                          Grid.Row="1"
                                          Margin="130 0 0 0"
-                                         x:Name="passBoxEnter"/>
+                                         x:Name="passBox"/>
                             <TextBlock  Style="{DynamicResource TextBlockStyle}" 
                                         Text="Введите логин:"
                                         Grid.Row="0"
